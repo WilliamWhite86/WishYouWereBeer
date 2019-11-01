@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
 $("#SearchButton").on('click', function () {
     $("#searchField").empty();
     $("#names").empty();
