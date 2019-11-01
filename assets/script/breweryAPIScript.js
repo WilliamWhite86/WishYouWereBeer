@@ -1,6 +1,7 @@
 $(document).ready(function () {
 $("#SearchButton").on('click', function () {
     $("#searchField").empty();
+    $("#names").empty();
     event.preventDefault();
    
         var stateinput = $("#searchField").val().trim();
@@ -9,11 +10,12 @@ $("#SearchButton").on('click', function () {
             url: url,
             method: "GET"
         }).done(function (response) {
+            console.log(response);
         Object.values(response).forEach((value) => {
             var place = $("<tr>");
             console.log(value.name);
             place.text(value.name);
-            $("#test").append(place);
+            $("#names").append(place);
             });
         });
     });
