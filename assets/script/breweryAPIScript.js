@@ -14,6 +14,8 @@ $("#SearchButton").on('click', function () {
             console.log(value.name);
             place.text(value.name);
             $("#test").append(place);
+            });
         });
     });
 });
+
