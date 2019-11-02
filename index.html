@@ -27,39 +27,31 @@
                 </select>
             </div>
         </div><a class="button button-black" id="SearchButton" href="#">Search</a>
-        <div class="column column-65 column-offset-10">
+        <div class="column column-25 column-offset-10">
             <table>
                 <h3>Results</h3>
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Age</th>
-                        <th>Height</th>
-                        <th>Location</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Stephen Curry</td>
-                        <td>27</td>
-                        <td>1,91</td>
-                        <td>Akron, OH</td>
-                    </tr>
-                    <tr>
-                        <td>Klay Thompson</td>
-                        <td>25</td>
-                        <td>2,01</td>
-                        <td>Los Angeles, CA</td>
-                    </tr>
+                <tbody id="places">
                 </tbody>
             </table>
         </div>
-
+        <div id="names"></div>
 
     </div>
 </body>
+<!-- <script src="sounds.js"></script>
+<script src="search.js"></script>
+<script src="location.js"></script> -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+    $.support.cors = true;
+</script>
 <script src="assets/script/breweryAPIScript.js"></script>
+<script src="assets/script/googleAPIFunctionality.js"></script>
 
 </html>
