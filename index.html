@@ -50,8 +50,11 @@
                         <td>Los Angeles, CA</td>
                     </tr>
                 </tbody>
+
             </table>
         </div>
+        <div id="map"></div>
+
 
 
     </div>
@@ -60,6 +63,27 @@
 <script src="search.js"></script>
 <script src="location.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="assets/script/breweryAPIScript.js"></script>
+<script>
+    // Initialize and add the map
+    navigator.geolocation.getCurrentPosition(showPosition);
+    function showPosition(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        
+            // The location of location
+        var location = {lat: parseFloat(lat), lng: parseFloat(lng)};
+        // The map, centered at location
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 15, center: location});
+        // The marker, positioned at the location
+        var marker = new google.maps.Marker({position: location, map: map});
+    }
+
+</script>
+<script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUsYoWxkL-yEEIfIfYeegLAsb3MV9cBgM">
+    </script>
+
 </html>
