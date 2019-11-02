@@ -90,7 +90,7 @@ $("#SearchButton").on('click', function () {
 
 
 // giphyKey = "hoKvwwGpkod07r23TMg1Ksg56Kzt7RNH";
-$(document).ready(function() {
+
 
     $("#SearchButton").on('click', function() {
         $("#searchField").empty();
