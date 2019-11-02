@@ -12,11 +12,16 @@
 </head>
 
 <body>
-
+    <header>
+        <br>
+        <h1>Wish You Were Beer</h1>
+        <br>
+    </header>
 
     <div class="container">
         <div class="row">
-            <div class="column column-25"><label for="searchField">Name</label><input type="text" placeholder="City Name" id="searchField"></div>
+            <div class="column column-25"><label for="searchField">Name</label><input type="text"
+                    placeholder="State Name" id="searchField"></div>
             <div class="column column-25 column-offset-25">
                 <label for="searchHistoryField">Search History</label>
                 <select id="searchHistoryField">
@@ -34,6 +39,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Website</th>
+                        <th>Distance</th>
                     </tr>
                 </thead>
                 <tbody id="places">
@@ -48,7 +54,8 @@
 <script src="search.js"></script>
 <script src="location.js"></script> -->
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script>
     $.support.cors = true;
 </script>
