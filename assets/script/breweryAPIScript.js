@@ -1,4 +1,15 @@
 $(document).ready(function() {
+
+    var arr = JSON.parse(localStorage.getItem("myarea")) || [];
+
+    renderMyPlaces();
+
+
+
+
+
+
+
     state = "New Hampshire"
     url = `https://api.openbrewerydb.org/breweries?by_state=new_hampshire`;
     $.ajax({
@@ -72,11 +83,7 @@ $(document).ready(function() {
 
         displayOverlay('<img src="https://media.giphy.com/media/21I1WgRqKQaT8TRdmq/giphy.gif">');
 
-        // removeOverlay();
 
-
-
-        // clearTimeout(displayOverlay);
 
 
 
@@ -90,18 +97,23 @@ $(document).ready(function() {
 
 
     });
-});
 
 
-// giphyKey = "hoKvwwGpkod07r23TMg1Ksg56Kzt7RNH";
-$(document).ready(function() {
+    // giphyKey = "hoKvwwGpkod07r23TMg1Ksg56Kzt7RNH";
 
     $("#SearchButton").on('click', function() {
         $("#searchField").empty();
         $("#names").empty();
         event.preventDefault();
 
+        addPlace();
+
+
         var stateinput = $("#searchField").val().trim();
+
+
+
+
         url = `https://api.openbrewerydb.org/breweries?by_state=${stateinput}`;
         $.ajax({
             url: url,
@@ -113,7 +125,69 @@ $(document).ready(function() {
                 console.log(value.name);
                 place.text(value.name);
                 $("#names").append(place);
+
+
+
+
             });
         });
     });
+
+    $("#searchHistoryField").on("change", function() {
+        var city = $(this).val();
+        console.log(city);
+    });
+
+    function addPlace() {
+
+
+
+
+
+        var stateinput = $("#searchField").val().trim();
+
+        arr.push(stateinput);
+
+        localStorage.setItem("myarea", JSON.stringify(arr));
+
+
+        renderMyPlaces();
+    }
+
+
+
+
+    function renderMyPlaces() {
+
+        $("#searchHistoryField").empty();
+
+        for (i = 0; i < arr.length; i++) {
+
+            var newEl = $("<option>");
+
+
+            newEl.text(arr[i])
+
+            newEl.prependTo("#searchHistoryField");
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    };
+
+
+
+
+
 });
