@@ -7,6 +7,7 @@
       padding-top: 20px;
       margin-bottom: 0px;
   }
+<<<<<<< HEAD
 
   header{
       color: Black;
@@ -15,3 +16,9 @@
       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
       font-weight: 300;
 }
+=======
+  #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+   }
+>>>>>>> 282e6fc64f4cc75ace00243d335c80bb0ef674ae
