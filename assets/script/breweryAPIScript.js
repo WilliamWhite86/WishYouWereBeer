@@ -1,6 +1,22 @@
 
 $(document).ready(function () {
+    $(document).on('click', '.maplocation', function () {
+        console.log("test")
+        var lati = $(this).attr("data-lat");
+        var long = $(this).attr("data-lon");
+        // Initialize and add the map
+        console.log(parseFloat(lati), parseFloat(long))
 
+        // The location of location
+        var location = { lat: parseFloat(lati), lng: parseFloat(long) };
+        // The map, centered at location
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 15, center: location });
+        // The marker, positioned at the location
+        var marker = new google.maps.Marker({ position: location, map: map });
+
+
+    })
     var arr = JSON.parse(localStorage.getItem("myarea")) || [];
 
     $("#SearchButton").on('click', function () {
@@ -47,6 +63,7 @@ $(document).ready(function () {
             }, 3000);
         };
 
+
         displayOverlay('<img src="https://media.giphy.com/media/21I1WgRqKQaT8TRdmq/giphy.gif">');
 
         var sound = new Audio("assets/bottle_sound.wav");
@@ -69,6 +86,9 @@ $(document).ready(function () {
 
             Object.values(response).forEach((value) => {
                 var place = $("<tr>");
+                place.attr("data-lat", value.latitude)
+                place.attr("data-lon", value.longitude)
+                place.addClass("maplocation")
                 var name = $("<td>");
                 var website = $("<td>");
                 console.log(value.name);
@@ -106,6 +126,8 @@ $(document).ready(function () {
                         $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
+
+
 
 
             });
