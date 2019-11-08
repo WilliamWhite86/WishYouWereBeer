@@ -1,6 +1,22 @@
 
 $(document).ready(function () {
+    $(document).on('click', '.maplocation', function () {
+        console.log("test")
+        var lati = $(this).attr("data-lat");
+        var long = $(this).attr("data-lon");
+        // Initialize and add the map
+        console.log(parseFloat(lati), parseFloat(long))
 
+        // The location of location
+        var location = { lat: parseFloat(lati), lng: parseFloat(long) };
+        // The map, centered at location
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 15, center: location });
+        // The marker, positioned at the location
+        var marker = new google.maps.Marker({ position: location, map: map });
+
+
+    })
     var arr = JSON.parse(localStorage.getItem("myarea")) || [];
     var placeObj = [];
 
@@ -44,6 +60,7 @@ $(document).ready(function () {
             }, 3000);
         };
 
+
         displayOverlay('<img src="https://media.giphy.com/media/21I1WgRqKQaT8TRdmq/giphy.gif">');
 
         var sound = new Audio("assets/bottle_sound.wav");
@@ -62,9 +79,21 @@ $(document).ready(function () {
         }).done(function (response) {
 
             Object.values(response).forEach((value) => {
-                var place = {};
-                place.name = value.name;
-                place.website = value.website_url;
+
+                var place = $("<tr>");
+                place.attr("data-lat", value.latitude)
+                place.attr("data-lon", value.longitude)
+                place.addClass("maplocation")
+                var name = $("<td>");
+                var website = $("<td>");
+                console.log(value.name);
+                name.text(value.name);
+                website.text(value.website_url)
+                $("#names").append(place);
+                place.append(name, website);
+                var where = {};
+                where.name = value.name;
+                where.website = value.website_url;
 
 
                 var destination = value.street + value.city;
@@ -82,7 +111,7 @@ $(document).ready(function () {
                         var distanceArray = [];
                         distanceArray.push(response.rows[0].elements[0].distance.text);
                         for (var i = 0; i < distanceArray.length; i++) {
-                            place.distance = parseInt(distanceArray[i].split(" ")[0]);
+                            where.distance = parseInt(distanceArray[i].split(" ")[0]);
 
                         }
 
@@ -91,7 +120,9 @@ $(document).ready(function () {
                         $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
-                placeObj.push(place);
+                placeObj.push(where);
+
+
 
             });
             setTimeout(sortList, 3000);
