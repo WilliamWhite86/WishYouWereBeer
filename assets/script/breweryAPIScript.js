@@ -79,18 +79,21 @@ $(document).ready(function () {
         }).done(function (response) {
 
             Object.values(response).forEach((value) => {
-
                 var place = $("<tr>");
                 place.attr("data-lat", value.latitude)
                 place.attr("data-lon", value.longitude)
                 place.addClass("maplocation")
                 var name = $("<td>");
                 var website = $("<td>");
+                var distance = $("<td>");
                 console.log(value.name);
                 name.text(value.name);
                 website.text(value.website_url)
+                console.log("=====")
+                distance.text(value.distance + " miles")
+                console.log(response)
                 $("#names").append(place);
-                place.append(name, website);
+                place.append(name, website, distance);
                 var where = {};
                 where.name = value.name;
                 where.website = value.website_url;
@@ -133,19 +136,19 @@ $(document).ready(function () {
             };
 
             setTimeout(printList, 3000)
-            function printList() {
-                Object.values(placeObj).forEach((value) => {
-                    var place = $("<tr>");
-                    var name = $("<td>");
-                    var website = $("<td>");
-                    var distance = $("<td>");
-                    name.text(value.name);
-                    website.text(value.website)
-                    distance.text(value.distance + " miles")
-                    place.append(name, website, distance);
-                    $("#names").append(place);
-                })
-            }
+            // function printList() {
+            //     Object.values(placeObj).forEach((value) => {
+            //         var place = $("<tr>");
+            //         var name = $("<td>");
+            //         var website = $("<td>");
+            //         var distance = $("<td>");
+            //         name.text(value.name);
+            //         website.text(value.website)
+            //         distance.text(value.distance + " miles")
+            //         place.append(name, website, distance);
+            //         $("#names").append(place);
+            //     })
+            // }
         });
 
         $("#searchHistoryField").on("change", function () {
