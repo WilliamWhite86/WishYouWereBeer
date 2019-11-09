@@ -1,5 +1,21 @@
 
 $(document).ready(function () {
+        $(document).on('click', '.maplocation', function () {
+        console.log("test")
+        var lati = $(this).attr("data-lat");
+        var long = $(this).attr("data-lon");
+        // // Initialize and add the map
+        console.log(parseFloat(lati), parseFloat(long))
+
+        // // The location of location
+        var location = { lat: parseFloat(lati), lng: parseFloat(long) };
+        // // The map, centered at location
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 15, center: location });
+        // // The marker, positioned at the location
+        var marker = new google.maps.Marker({ position: location, map: map })});
+
+
 
     var arr = JSON.parse(localStorage.getItem("myarea")) || [];
     var placeObj = [];
@@ -60,16 +76,19 @@ $(document).ready(function () {
             url: url,
             method: "GET"
         }).done(function (response) {
-
+            console.log(response);
             Object.values(response).forEach((value) => {
                 var place = {};
                 place.name = value.name;
                 place.website = value.website_url;
+                place.longitude = value.longitude;
+                place.latitude = value.latitude;
 
 
                 var destination = value.street + value.city;
                 apiKey = "AIzaSyAU_8wi9cIK0CHy40pS_wW2X6lGnc81pkg"
                 $.get("https://ipinfo.io", function (response) {
+                    console.log(response);
                     city = response.city;
                     region = response.region;
 
@@ -94,25 +113,29 @@ $(document).ready(function () {
                 placeObj.push(place);
 
             });
-            setTimeout(sortList, 3000);
+            setTimeout(sortList, 3500);
             function sortList() {
                 placeObj.sort(function (a, b) {
                     return a.distance - b.distance;
                 });
             };
 
-            setTimeout(printList, 3000)
+            setTimeout(printList, 4000)
             function printList() {
                 Object.values(placeObj).forEach((value) => {
                     var place = $("<tr>");
+                    place.addClass("maplocation")
                     var name = $("<td>");
                     var website = $("<td>");
-                    var distance = $("<td>");
+                    var distance = $("<td>");                    
+                    place.attr("data-lat", value.latitude)
+                    place.attr("data-lon", value.longitude)
                     name.text(value.name);
                     website.text(value.website)
                     distance.text(value.distance + " miles")
                     place.append(name, website, distance);
                     $("#names").append(place);
+                    console.log(value)
                 })
             }
         });
