@@ -1,11 +1,9 @@
 
 $(document).ready(function () {
         $(document).on('click', '.maplocation', function () {
-        console.log("test")
         var lati = $(this).attr("data-lat");
         var long = $(this).attr("data-lon");
         // // Initialize and add the map
-        console.log(parseFloat(lati), parseFloat(long))
 
         // // The location of location
         var location = { lat: parseFloat(lati), lng: parseFloat(long) };
@@ -13,9 +11,8 @@ $(document).ready(function () {
         var map = new google.maps.Map(
             document.getElementById('map'), { zoom: 15, center: location });
         // // The marker, positioned at the location
-        var marker = new google.maps.Marker({ position: location, map: map })});
-
-
+        //var marker = new google.maps.Marker({ position: location, map: map })
+        });
 
     var arr = JSON.parse(localStorage.getItem("myarea")) || [];
     var placeObj = [];
@@ -39,7 +36,6 @@ $(document).ready(function () {
                 "font-size": "30px",
                 "font-weight": "bold",
                 "cursor": "wait",
-
             }).appendTo("body");
 
             $(img).css({
@@ -52,11 +48,8 @@ $(document).ready(function () {
 
             }).appendTo(overlay);
 
-
             setTimeout(function () {
-
                 overlay.remove();
-
             }, 3000);
         };
 
@@ -76,7 +69,6 @@ $(document).ready(function () {
             url: url,
             method: "GET"
         }).done(function (response) {
-            console.log(response);
             Object.values(response).forEach((value) => {
                 var place = {};
                 place.name = value.name;
@@ -88,7 +80,6 @@ $(document).ready(function () {
                 var destination = value.street + value.city;
                 apiKey = "AIzaSyAU_8wi9cIK0CHy40pS_wW2X6lGnc81pkg"
                 $.get("https://ipinfo.io", function (response) {
-                    console.log(response);
                     city = response.city;
                     region = response.region;
 
@@ -104,9 +95,6 @@ $(document).ready(function () {
                             place.distance = parseInt(distanceArray[i].split(" ")[0]);
 
                         }
-
-
-
                         $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
@@ -135,7 +123,6 @@ $(document).ready(function () {
                     distance.text(value.distance + " miles")
                     place.append(name, website, distance);
                     $("#names").append(place);
-                    console.log(value)
                 })
             }
         });
