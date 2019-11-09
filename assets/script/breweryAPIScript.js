@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+        
         $(document).on('click', '.maplocation', function () {
         var lati = $(this).attr("data-lat");
         var long = $(this).attr("data-lon");
@@ -13,15 +14,25 @@ $(document).ready(function () {
         // // The marker, positioned at the location
         //var marker = new google.maps.Marker({ position: location, map: map })
         });
-
+    
     var arr = JSON.parse(localStorage.getItem("myarea")) || [];
     var placeObj = [];
-
+    
+    function renderMyPlaces() {
+        $("#searchHistoryField").empty();
+        console.log("working");
+        for (i = 0; i < arr.length; i++) {
+            var newEl = $("<option>");
+            newEl.text(arr[i])
+            newEl.prependTo("#searchHistoryField");
+        }
+    };
+    renderMyPlaces();
     $("#SearchButton").on('click', function () {
-        $("#searchField").empty();
+        // $("#searchField").empty();
         $("#names").empty();
         event.preventDefault();
-
+        renderMyPlaces();
         function displayOverlay(img) {
             var overlay = $("<div>").css({
                 "position": "fixed",
@@ -93,13 +104,13 @@ $(document).ready(function () {
                         var distanceArray = [];
                         distanceArray.push(response.rows[0].elements[0].distance.text);
                         for (var i = 0; i < distanceArray.length; i++) {
-                            where.distance = parseInt(distanceArray[i].split(" ")[0]);
+                            place.distance = parseInt(distanceArray[i].split(" ")[0]);
 
                         }
                         $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
-                placeObj.push(where);
+                placeObj.push(place);
 
 
 
@@ -140,13 +151,14 @@ $(document).ready(function () {
             localStorage.setItem("myarea", JSON.stringify(arr));
             renderMyPlaces();
         }
-        function renderMyPlaces() {
-            $("#searchHistoryField").empty();
-            for (i = 0; i < arr.length; i++) {
-                var newEl = $("<option>");
-                newEl.text(arr[i])
-                newEl.prependTo("#searchHistoryField");
-            }
-        };
+        // function renderMyPlaces() {
+        //     $("#searchHistoryField").empty();
+        //     console.log("working");
+        //     for (i = 0; i < arr.length; i++) {
+        //         var newEl = $("<option>");
+        //         newEl.text(arr[i])
+        //         newEl.prependTo("#searchHistoryField");
+        //     }
+        // };
     });
 });
