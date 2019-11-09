@@ -93,13 +93,13 @@ $(document).ready(function () {
                         var distanceArray = [];
                         distanceArray.push(response.rows[0].elements[0].distance.text);
                         for (var i = 0; i < distanceArray.length; i++) {
-                            where.distance = parseInt(distanceArray[i].split(" ")[0]);
+                            place.distance = parseInt(distanceArray[i].split(" ")[0]);
 
                         }
                         $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
-                placeObj.push(where);
+                placeObj.push(place);
 
 
 
