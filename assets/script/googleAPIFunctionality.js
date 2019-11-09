@@ -3,7 +3,6 @@ $(document).ready(function () {
     apiKey = "AIzaSyAU_8wi9cIK0CHy40pS_wW2X6lGnc81pkg"
     url = `https://cors-anywhere.herokuapp.com/https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
     $.get("https://ipinfo.io", function (response) {
-        console.log(response.ip, response.country);
         city = response.city;
         region = response.region;
     

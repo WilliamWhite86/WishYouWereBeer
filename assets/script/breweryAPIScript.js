@@ -1,7 +1,9 @@
 
 $(document).ready(function () {
-        
-        $(document).on('click', '.maplocation', function () {
+    var arr = JSON.parse(localStorage.getItem("myarea")) || [];
+    var placeObj = [];
+    renderMyPlaces();
+    $(document).on('click', '.maplocation', function () {
         var lati = $(this).attr("data-lat");
         var long = $(this).attr("data-lon");
         // // Initialize and add the map
@@ -12,27 +14,23 @@ $(document).ready(function () {
         var map = new google.maps.Map(
             document.getElementById('map'), { zoom: 15, center: location });
         // // The marker, positioned at the location
-        //var marker = new google.maps.Marker({ position: location, map: map })
-        });
-    
-    var arr = JSON.parse(localStorage.getItem("myarea")) || [];
-    var placeObj = [];
-    
+        marker = new google.maps.Marker({ position: location, map: map })
+    });
+
     function renderMyPlaces() {
         $("#searchHistoryField").empty();
-        console.log("working");
         for (i = 0; i < arr.length; i++) {
             var newEl = $("<option>");
             newEl.text(arr[i])
             newEl.prependTo("#searchHistoryField");
         }
     };
-    renderMyPlaces();
     $("#SearchButton").on('click', function () {
-        // $("#searchField").empty();
+        addPlace();
+        renderMyPlaces();
+        $("#searchField").empty();
         $("#names").empty();
         event.preventDefault();
-        renderMyPlaces();
         function displayOverlay(img) {
             var overlay = $("<div>").css({
                 "position": "fixed",
@@ -64,7 +62,6 @@ $(document).ready(function () {
             }, 3000);
         };
 
-
         displayOverlay('<img src="https://media.giphy.com/media/21I1WgRqKQaT8TRdmq/giphy.gif">');
 
         var sound = new Audio("assets/bottle_sound.wav");
@@ -74,13 +71,14 @@ $(document).ready(function () {
         $("#names").empty();
         event.preventDefault();
 
-        addPlace();
+        //addPlace();
         var stateinput = $("#searchField").val().trim();
         url = `https://api.openbrewerydb.org/breweries?by_state=${stateinput}`;
         $.ajax({
             url: url,
             method: "GET"
         }).done(function (response) {
+            console.log(response);
             Object.values(response).forEach((value) => {
 
                 var place = {};
@@ -107,12 +105,9 @@ $(document).ready(function () {
                             place.distance = parseInt(distanceArray[i].split(" ")[0]);
 
                         }
-                        $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
                 placeObj.push(place);
-
-
 
             });
             setTimeout(sortList, 3500);
@@ -129,7 +124,7 @@ $(document).ready(function () {
                     place.addClass("maplocation")
                     var name = $("<td>");
                     var website = $("<td>");
-                    var distance = $("<td>");                    
+                    var distance = $("<td>");
                     place.attr("data-lat", value.latitude)
                     place.attr("data-lon", value.longitude)
                     name.text(value.name);
@@ -149,16 +144,6 @@ $(document).ready(function () {
             var stateinput = $("#searchField").val().trim();
             arr.push(stateinput);
             localStorage.setItem("myarea", JSON.stringify(arr));
-            renderMyPlaces();
         }
-        // function renderMyPlaces() {
-        //     $("#searchHistoryField").empty();
-        //     console.log("working");
-        //     for (i = 0; i < arr.length; i++) {
-        //         var newEl = $("<option>");
-        //         newEl.text(arr[i])
-        //         newEl.prependTo("#searchHistoryField");
-        //     }
-        // };
     });
 });
