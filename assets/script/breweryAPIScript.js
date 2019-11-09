@@ -53,6 +53,7 @@ $(document).ready(function () {
             }, 3000);
         };
 
+
         displayOverlay('<img src="https://media.giphy.com/media/21I1WgRqKQaT8TRdmq/giphy.gif">');
 
         var sound = new Audio("assets/bottle_sound.wav");
@@ -70,12 +71,12 @@ $(document).ready(function () {
             method: "GET"
         }).done(function (response) {
             Object.values(response).forEach((value) => {
+
                 var place = {};
                 place.name = value.name;
                 place.website = value.website_url;
                 place.longitude = value.longitude;
                 place.latitude = value.latitude;
-
 
                 var destination = value.street + value.city;
                 apiKey = "AIzaSyAU_8wi9cIK0CHy40pS_wW2X6lGnc81pkg"
@@ -92,13 +93,15 @@ $(document).ready(function () {
                         var distanceArray = [];
                         distanceArray.push(response.rows[0].elements[0].distance.text);
                         for (var i = 0; i < distanceArray.length; i++) {
-                            place.distance = parseInt(distanceArray[i].split(" ")[0]);
+                            where.distance = parseInt(distanceArray[i].split(" ")[0]);
 
                         }
                         $("#searchHistoryField").empty();
                     });
                 }, "jsonp")
-                placeObj.push(place);
+                placeObj.push(where);
+
+
 
             });
             setTimeout(sortList, 3500);
@@ -125,6 +128,7 @@ $(document).ready(function () {
                     $("#names").append(place);
                 })
             }
+
         });
 
         $("#searchHistoryField").on("change", function () {
